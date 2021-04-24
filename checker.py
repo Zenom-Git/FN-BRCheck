@@ -821,7 +821,7 @@ def Update():
                             os.rename(filename, f'old-{filename_}{extension}')
                         except PermissionError:
                             print(Fore.RED+f'{filename} ファイルのバックアップに失敗しました')
-                            print(Fore.RED+f'{traceback.format_exc()}\n')
+                            print(f'{traceback.format_exc()}\n')
                             return None
                         else:
                             with open(filename, 'w', encoding="utf-8") as f:
