@@ -754,7 +754,7 @@ def Update():
                         print(Fore.CYAN+f'{filename} の更新ファイルのインストールに成功しました')
                         return True
                 else:
-                    print(Fore.RED+f'{filename} ファイルが見つかりませんでした')
+                    print(Fore.YELLOW+f'{filename} の更新はありません')
                     return False
             elif extension == ".json":
                 if os.path.isfile(filename):
@@ -885,7 +885,7 @@ def Update():
         githuburl = "https://raw.githubusercontent.com/Zenom-Git/Fortnite-C/master/"
 
     if CheckUpdate("checker.py", githuburl):
-        print(Fore.YELLOW+"checker.py を更新したため再起動してください")
+        print(Fore.YELLOW+"checker.py を更新したため再起動してくだい")
         time.sleep(6)
         exit()
 
