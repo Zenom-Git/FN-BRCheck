@@ -720,7 +720,7 @@ def Update():
                 else:
                     github = requests.get(githuburl + filename)
                     if github.status_code != 200:
-                        print(Fore.RED+f'{filename} ファイルが見つかりませんでした')
+                        print(Fore.YELLOW+f'{filename} の更新はありません')
                         return None
                     github.encoding = github.apparent_encoding
                     github = github.text.encode(encoding='utf-8')
@@ -730,7 +730,7 @@ def Update():
                         current = f.read()
                 github = requests.get(githuburl + filename)
                 if github.status_code != 200:
-                    print(Fore.RED+f'{filename} ファイルが見つかりませんでした')
+                    print(Fore.YELLOW+f'{filename} の更新はありません')
                     return None
                 github.encoding = github.apparent_encoding
                 github = github.text.encode(encoding='utf-8')
