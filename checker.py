@@ -702,7 +702,7 @@ def Fortnite_news():
 
 def Update():
     def CheckUpdate(filename: str, githuburl: str, overwrite: bool = False) -> bool:
-        print(f'{filename} の更新を確認中...')
+        print(f'{filename} の更新ファイルがあるかチェックします')
         try:
             if "/" in filename:
                 os.makedirs("/".join(filename.split("/")[:-1]), exist_ok=True)
@@ -713,14 +713,14 @@ def Update():
                     break
             else:
                 extension = ""
-            if extension in [".py", ".bat", ".txt", ".md", ".html", ".toml", ""]:
+            if extension in [".py", ".bat", ".txt", ".md", ".html", ".exe", ""]:
                 if os.path.isfile(filename):
                     with open(filename, "r", encoding='utf-8') as f:
                         current = f.read()
                 else:
                     github = requests.get(githuburl + filename)
                     if github.status_code != 200:
-                        print(f'{filename} のデータを取得できませんでした')
+                        print(Fore.RED+f'{filename} ファイルが見つかりませんでした')
                         return None
                     github.encoding = github.apparent_encoding
                     github = github.text.encode(encoding='utf-8')
@@ -730,32 +730,31 @@ def Update():
                         current = f.read()
                 github = requests.get(githuburl + filename)
                 if github.status_code != 200:
-                    print(f'{filename} のデータを取得できませんでした')
+                    print(Fore.RED+f'{filename} ファイルが見つかりませんでした')
                     return None
                 github.encoding = github.apparent_encoding
                 github = github.text.encode(encoding='utf-8')
                 if current.replace('\n','').replace('\r','').encode(encoding='utf-8') != github.decode().replace('\n','').replace('\r','').encode(encoding='utf-8'):
-                    print(f'{filename} の更新を確認しました!')
-                    print(f'{filename} をバックアップ中...')
+                    print(Fore.CYAN+f'{filename} の更新ファイルが見つかりました')
+                    print(f'{filename} のバックアップを作成します')
                     if os.path.isfile(f'old-{filename_}{extension}'):
                         try:
                             os.remove(f'old-{filename_}{extension}')
                         except PermissionError:
-                            print(f'{filename} ファイルを削除できませんでした')
+                            print(Fore.RED+f'{filename} の古いファイルを削除できませんでした')
                             print(traceback.format_exc())
                     try:
-                        os.rename(filename, f'{filename_}_old{extension}')
+                        os.rename(filename, f'old-{filename_}{extension}')
                     except PermissionError:
-                        print(f'{filename} ファイルをバックアップできませんでした')
+                        print(Fore.RED+f'{filename} ファイルのバックアップに失敗しました')
                         print(traceback.format_exc())
                     else:
                         with open(filename, "wb") as f:
                             f.write(github)
-                        print(f'{filename} の更新が完了しました!')
+                        print(Fore.CYAN+f'{filename} の更新ファイルのインストールに成功しました')
                         return True
                 else:
-                    print(f'{filename} の更新はありません!')
-                    print(f'No update for {filename}!\n')
+                    print(Fore.RED+f'{filename} ファイルが見つかりませんでした')
                     return False
             elif extension == ".json":
                 if os.path.isfile(filename):
@@ -764,8 +763,7 @@ def Update():
                 else:
                     github = requests.get(githuburl + filename)
                     if github.status_code != 200:
-                        print(f'{filename} のデータを取得できませんでした')
-                        print(f'Failed to get data for {filename}\n')
+                        print(Fore.RED+f'{filename} ファイルが見つかりませんでした')
                         return None
                     github.encoding = github.apparent_encoding
                     github = github.text.encode(encoding='utf-8')
@@ -779,8 +777,7 @@ def Update():
                             current = json.load(f)
                 github = requests.get(githuburl + filename)
                 if github.status_code != 200:
-                    print(f'{filename} のデータを取得できませんでした')
-                    print(f'Failed to get data for {filename}\n')
+                    print(Fore.RED+f'{filename} ファイルが見つかりませんでした')
                     return None
                 github.encoding = github.apparent_encoding
                 github = github.text
@@ -788,63 +785,51 @@ def Update():
 
                 if overwrite:
                     if current != github:
-                        print(f'{filename} の更新を確認しました!')
-                        print(f'{filename} をバックアップ中...')
-                        print(f'Update found for {filename}!')
-                        print(f'Backuping {filename}...\n')
-                        if os.path.isfile(f'{filename_}_old{extension}'):
+                        print(Fore.CYAN+f'{filename} の更新ファイルが見つかりました')
+                        print(f'{filename} をバックアップしています')
+                        if os.path.isfile(f'old-{filename_}{extension}'):
                             try:
-                                os.remove(f'{filename_}_old{extension}')
+                                os.remove(f'old-{filename_}{extension}')
                             except PermissionError:
-                                print(f'{filename} ファイルを削除できませんでした')
-                                print(f'Failed to remove file {filename}\n')
+                                print(Fore.RED+f'{filename} の古いファイルを削除できませんでした')
                                 print(traceback.format_exc())
                         try:
                             os.rename(filename, f'{filename_}_old{extension}')
                         except PermissionError:
-                            print(f'{filename} ファイルをバックアップできませんでした')
-                            print(f'Failed to backup file {filename}\n')
+                            print(Fore.RED+f'{filename} ファイルのバックアップに失敗しました')
                             print(traceback.format_exc())
                         else:
                             with open(filename, "w", encoding="utf-8") as f:
                                 json.dump(github, f, indent=4, ensure_ascii=False)
-                            print(f'{filename} の更新が完了しました!')
-                            print(f'Update for {filename} done!\n')
+                            print(Fore.CYAN+f'{filename} の更新ファイルのインストールに成功しました')
                             return True
                     else:
-                        print(f'{filename} の更新はありません!')
-                        print(f'No update for {filename}!\n')
+                        print(Fore.YELLOW+f'{filename} の更新は見つかりませんでした')
                         return False
                 else:
                     new = AddNewKey(current, github)
                     if current != new:
-                        print(f'{filename} の更新を確認しました!')
-                        print(f'{filename} をバックアップ中...')
-                        print(f'Update found for {filename}!')
-                        print(f'Backuping {filename}...\n')
+                        print(Fore.CYAN+f'{filename} の更新ファイルが見つかりました')
+                        print(f'{filename} のバックアップを作成しています')
                         try:
-                            if os.path.isfile(f'{filename_}_old{extension}'):
+                            if os.path.isfile(f'old-{filename_}{extension}'):
                                 try:
-                                    os.remove(f'{filename_}_old{extension}')
+                                    os.remove(f'old-{filename_}{extension}')
                                 except PermissionError:
-                                    print(f'{filename_}_old{extension} ファイルを削除できませんでした')
-                                    print(f'Failed to remove file {filename_}_old{extension}')
-                                    print(f'{traceback.format_exc()}\n')
-                            os.rename(filename, f'{filename_}_old{extension}')
+                                    print(Fore.RED+f'old-{filename_}{extension} ファイルを削除できませんでした')
+                                    print(Fore.RED+f'{traceback.format_exc()}\n')
+                            os.rename(filename, f'old-{filename_}{extension}')
                         except PermissionError:
-                            print(f'{filename} ファイルをバックアップできませんでした')
-                            print(f'Failed to backup file {filename}')
-                            print(f'{traceback.format_exc()}\n')
+                            print(Fore.RED+f'{filename} ファイルのバックアップに失敗しました')
+                            print(Fore.RED+f'{traceback.format_exc()}\n')
                             return None
                         else:
                             with open(filename, 'w', encoding="utf-8") as f:
                                 json.dump(new, f, indent=4, ensure_ascii=False)
-                            print(f'{filename} の更新が完了しました!')
-                            print(f'Update for {filename} done!\n')
+                            print(Fore.CYAN+f'{filename} の更新ファイルのインストールに成功しました')
                             return True
                     else:
-                        print(f'{filename} の更新はありません!')
-                        print(f'No update for {filename}!\n')
+                        print(Fore.YELLOW+f'{filename} の更新は見つかりませんでした')
                         return False
             elif extension == ".png":
                 if os.path.isfile(filename):
@@ -853,8 +838,7 @@ def Update():
                 else:
                     github = requests.get(githuburl + filename)
                     if github.status_code != 200:
-                        print(f'{filename} のデータを取得できませんでした')
-                        print(f'Failed to get data for {filename}\n')
+                        print(Fore.RED+f'{filename} ファイルが見つかりませんでした')
                         return None
                     github = github.content
                     with open(filename, "wb") as f:
@@ -863,45 +847,36 @@ def Update():
                         current = f.read()
                 github = requests.get(githuburl + filename)
                 if github.status_code != 200:
-                    print(f'{filename} のデータを取得できませんでした')
-                    print(f'Failed to get data for {filename}\n')
+                    print(Fore.RED+f'{filename} のファイルが見つかりませんでした')
                     return None
                 github = github.content
                 if current != github:
-                    print(f'{filename} の更新を確認しました!')
-                    print(f'{filename} をバックアップ中...')
-                    print(f'Update found for {filename}!')
-                    print(f'Backuping {filename}...\n')
-                    if os.path.isfile(f'{filename_}_old{extension}'):
+                    print(Fore.CYAN+f'{filename} の更新ファイルが見つかりました')
+                    print(f'{filename} をバックアップしています')
+                    if os.path.isfile(f'old-{filename_}{extension}'):
                         try:
-                            os.remove(f'{filename_}_old{extension}')
+                            os.remove(f'old-{filename_}{extension}')
                         except PermissionError:
-                            print(f'{filename} ファイルを削除できませんでした')
-                            print(f'Failed to remove file {filename}\n')
+                            print(Fore.RED+f'{filename} の古いファイルを削除できませんでした')
                             print(traceback.format_exc())
                     try:
-                        os.rename(filename, f'{filename_}_old{extension}')
+                        os.rename(filename, f'old-{filename_}{extension}')
                     except PermissionError:
-                        print(f'{filename} ファイルをバックアップできませんでした')
-                        print(f'Failed to backup file {filename}\n')
+                        print(f'{filename} ファイルのバックアップに失敗しました')
                         print(traceback.format_exc())
                     else:
                         with open(filename, "wb") as f:
                             f.write(github)
-                        print(f'{filename} の更新が完了しました!')
-                        print(f'Update for {filename} done!\n')
+                        print(f'{filename} の更新ファイルのインストールに成功しました')
                         return True
                 else:
-                    print(f'{filename} の更新はありません!')
-                    print(f'No update for {filename}!\n')
+                    print(Fore.YELOOW+f'{filename} の更新は見つかりませんでした')
                     return False
             else:
-                print(f'拡張子 {extension} は対応していません')
-                print(f'Extension {extension} not supported\n')
+                print(Fore.RED+f'{extension} は無効な拡張子です')
                 return None
         except Exception:
-            print("更新に失敗しました")
-            print("Update failed")
+            print(Fore.RED+"更新に失敗しました")
             print(f'{traceback.format_exc()}\n')
             return None
     if "-dev" in sys.argv:
@@ -910,11 +885,9 @@ def Update():
         githuburl = "https://raw.githubusercontent.com/Zenom-Git/Fortnite-C/master/"
 
     if CheckUpdate("checker.py", githuburl):
-        print("checker.py の更新を確認しました。アップデーターをもう一度起動します...")
-        os.chdir(os.getcwd())
-        os.execv(os.sys.executable,['python', *sys.argv])
-
-
+        print(Fore.CYAN+"checker.py の更新ファイルが見つかりました。"+Fore.YELLOW+"再起動してください")
+        time.sleep(6)
+        exit()
 
 def renumber():
     print("")
