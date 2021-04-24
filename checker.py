@@ -703,7 +703,6 @@ def Fortnite_news():
 def Update():
     def CheckUpdate(filename: str, githuburl: str, overwrite: bool = False) -> bool:
         print(f'{filename} の更新を確認中...')
-        print(f'Checking update for {filename}...')
         try:
             if "/" in filename:
                 os.makedirs("/".join(filename.split("/")[:-1]), exist_ok=True)
@@ -722,7 +721,6 @@ def Update():
                     github = requests.get(githuburl + filename)
                     if github.status_code != 200:
                         print(f'{filename} のデータを取得できませんでした')
-                        print(f'Failed to get data for {filename}\n')
                         return None
                     github.encoding = github.apparent_encoding
                     github = github.text.encode(encoding='utf-8')
@@ -733,33 +731,27 @@ def Update():
                 github = requests.get(githuburl + filename)
                 if github.status_code != 200:
                     print(f'{filename} のデータを取得できませんでした')
-                    print(f'Failed to get data for {filename}\n')
                     return None
                 github.encoding = github.apparent_encoding
                 github = github.text.encode(encoding='utf-8')
                 if current.replace('\n','').replace('\r','').encode(encoding='utf-8') != github.decode().replace('\n','').replace('\r','').encode(encoding='utf-8'):
                     print(f'{filename} の更新を確認しました!')
                     print(f'{filename} をバックアップ中...')
-                    print(f'Update found for {filename}!')
-                    print(f'Backuping {filename}...\n')
-                    if os.path.isfile(f'{filename_}_old{extension}'):
+                    if os.path.isfile(f'old-{filename_}{extension}'):
                         try:
-                            os.remove(f'{filename_}_old{extension}')
+                            os.remove(f'old-{filename_}{extension}')
                         except PermissionError:
                             print(f'{filename} ファイルを削除できませんでした')
-                            print(f'Failed to remove file {filename}\n')
                             print(traceback.format_exc())
                     try:
                         os.rename(filename, f'{filename_}_old{extension}')
                     except PermissionError:
                         print(f'{filename} ファイルをバックアップできませんでした')
-                        print(f'Failed to backup file {filename}\n')
                         print(traceback.format_exc())
                     else:
                         with open(filename, "wb") as f:
                             f.write(github)
                         print(f'{filename} の更新が完了しました!')
-                        print(f'Update for {filename} done!\n')
                         return True
                 else:
                     print(f'{filename} の更新はありません!')
