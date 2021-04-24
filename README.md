@@ -1,4 +1,4 @@
-# フォートナイト戦績確認ツール
+# フォートナイト戦績確認ツール (Ver.1.0)
 
 [Twitter サポート](https://twitter.com/ZenomBot)
 
