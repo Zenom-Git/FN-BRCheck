@@ -703,6 +703,7 @@ def Fortnite_news():
 def Update():
     def CheckUpdate(filename: str, githuburl: str, overwrite: bool = False) -> bool:
         print(f'{filename} の更新ファイルがあるかチェックします')
+        time.sleep(1)
         try:
             if "/" in filename:
                 os.makedirs("/".join(filename.split("/")[:-1]), exist_ok=True)
@@ -721,6 +722,7 @@ def Update():
                     github = requests.get(githuburl + filename)
                     if github.status_code != 200:
                         print(Fore.YELLOW+f'{filename} の更新はありません')
+                        remenu()
                         return None
                     github.encoding = github.apparent_encoding
                     github = github.text.encode(encoding='utf-8')
@@ -731,6 +733,7 @@ def Update():
                 github = requests.get(githuburl + filename)
                 if github.status_code != 200:
                     print(Fore.YELLOW+f'{filename} の更新はありません')
+                    remenu()
                     return None
                 github.encoding = github.apparent_encoding
                 github = github.text.encode(encoding='utf-8')
@@ -755,6 +758,7 @@ def Update():
                         return True
                 else:
                     print(Fore.YELLOW+f'{filename} の更新はありません')
+                    remenu()
                     return False
             elif extension == ".json":
                 if os.path.isfile(filename):
@@ -763,7 +767,8 @@ def Update():
                 else:
                     github = requests.get(githuburl + filename)
                     if github.status_code != 200:
-                        print(Fore.RED+f'{filename} ファイルが見つかりませんでした')
+                        print(Fore.YELLOW+f'{filename} の更新はありません')
+                        remenu()
                         return None
                     github.encoding = github.apparent_encoding
                     github = github.text.encode(encoding='utf-8')
@@ -777,7 +782,8 @@ def Update():
                             current = json.load(f)
                 github = requests.get(githuburl + filename)
                 if github.status_code != 200:
-                    print(Fore.RED+f'{filename} ファイルが見つかりませんでした')
+                    print(Fore.YELLOW+f'{filename} の更新はありません')
+                    remenu()
                     return None
                 github.encoding = github.apparent_encoding
                 github = github.text
@@ -838,7 +844,8 @@ def Update():
                 else:
                     github = requests.get(githuburl + filename)
                     if github.status_code != 200:
-                        print(Fore.RED+f'{filename} ファイルが見つかりませんでした')
+                        print(Fore.YELLOW+f'{filename} の更新はありません')
+                        remenu()
                         return None
                     github = github.content
                     with open(filename, "wb") as f:
