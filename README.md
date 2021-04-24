@@ -8,7 +8,7 @@
 バージョンの更新はgithubのタイトル又はTwitterのプロフィールの位置情報欄よりご確認ください  
 
 ## 使用方法
-1, Pythonの[インストール](https://www.python.org/ftp/python/3.7.8/python-3.7.8-amd64-webinstall.exe)を行ってください。  
+1, 事前にPythonの[インストール](https://www.python.org/ftp/python/3.7.8/python-3.7.8-amd64-webinstall.exe)を行ってください。  
 2, ファイルのダウンロード  
 3, [バッチファイル](install.bat)を実行する(ライブラリのインストール)
 4, [フォートナイト戦績確認.exe](フォートナイト戦績確認.exe) を実行する  
