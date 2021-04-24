@@ -885,7 +885,7 @@ def Update():
         githuburl = "https://raw.githubusercontent.com/Zenom-Git/Fortnite-C/master/"
 
     if CheckUpdate("checker.py", githuburl):
-        print(Fore.CYAN+"checker.py の更新ファイルが見つかりました。"+Fore.YELLOW+"再起動してください")
+        print(Fore.YELLOW+"checker.py を更新したため再起動してください")
         time.sleep(6)
         exit()
 
