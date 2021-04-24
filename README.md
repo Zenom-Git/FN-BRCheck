@@ -8,7 +8,7 @@
 
 ## ライセンス
 [MITライセンス](LICENSE "ライセンス") 
-このソフトウェアを無制限で使用することができます  
-ただし、商用目的での利用、プログラムの改変、再配布などは許可されません  
-この著作権表示の全文は目に留まる場所に配置してください  
-このソフトウェアの使用によって発生したいかなる損害にも責任を負いません
+You can use this software unlimitedly
+However, commercial use, program modification, redistribution, etc. are not permitted.
+Place the full text of this copyright notice in a conspicuous place
+We are not responsible for any damage caused by using this software
