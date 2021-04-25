@@ -1,5 +1,5 @@
 # FORTNITE-BRCheck
-## Ver.1.  
+## Ver.1.1  
 
 [Twitter サポート](https://twitter.com/ZenomBot)
 
