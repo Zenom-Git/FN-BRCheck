@@ -1,4 +1,5 @@
-# フォートナイト戦績確認 (Ver.1.0)
+# FORTNITE-BRCheck
+## Ver.1.0  
 
 [Twitter サポート](https://twitter.com/ZenomBot)
 
