@@ -4,9 +4,9 @@
 [Twitter サポート](https://twitter.com/ZenomBot)
 
 ## 概要
-[Fortnite-Api](https://fortnite-api.com/)を使用したテスト段階の戦績確認等が出来るツールです  
+[Fortnite-Api](https://fortnite-api.com/)を使用した戦績確認等が出来るツールです  
 バグや変更してほしい点はTwitter @ZenomBot のDM又はメンションよりお知らせください  
-バージョンの更新はgithubのタイトル又はTwitterのプロフィールの位置情報欄よりご確認ください  
+バージョンの更新はprogram内又はTwitterのプロフィールの位置情報欄よりご確認ください  
 
 ## 使用方法
 1, 事前にPythonの[インストール](https://www.python.org/ftp/python/3.7.8/python-3.7.8-amd64-webinstall.exe)を行ってください。  
