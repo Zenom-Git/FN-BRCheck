@@ -12,7 +12,7 @@
 1, 事前にPythonの[インストール](https://www.python.org/ftp/python/3.7.8/python-3.7.8-amd64-webinstall.exe)を行ってください。  
 2, ファイルの[ダウンロード](https://github.com/Zenom-Git/Fortnite-BRCheck/archive/refs/heads/main.zip)  
 3, [バッチファイル](install.bat)を実行する(ライブラリのインストール)  
-4, [フォートナイト戦績確認.exe](フォートナイト戦績確認.exe) を実行する  
+4, [FORTNITE-BRCheck.exe](FORTNITE-BRCheck.exe) を実行する  
   
 [iconsファイル](icons)、[newsファイル](news)は削除しないでください (中身は削除可)  
 更新の際は全てのファイルを置き換えて、上記の3番から実行してください  
