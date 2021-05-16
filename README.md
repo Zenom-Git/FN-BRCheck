@@ -1,4 +1,4 @@
-# FORTNITE-BRCheck
+# FN-BRCheck
 ## Ver.1.1.2  
 
 [Twitter サポート](https://twitter.com/ZenomBot)
@@ -12,8 +12,8 @@
 ## 使用方法
 1, 事前にPythonの[インストール](https://www.python.org/ftp/python/3.7.8/python-3.7.8-amd64-webinstall.exe)を行ってください。  
 2, ファイルの[ダウンロード](https://www.dropbox.com/sh/knzbd9zzg9j8s87/AAAUlGLLFHUZBTPhVzaFW8iya?dl=0)  
-3, [バッチファイル](install.bat)を実行する(ライブラリのインストール)  
-4, [FORTNITE-BRCheck](FORTNITE-BRCheck.exe) を実行する  
+3, バッチファイル(install.bat)を実行する(ライブラリのインストール)  
+4, [FN-BRCheck]を実行する  
   
 [iconsファイル](icons)、[newsファイル](news)は削除しないでください (中身は削除可)  
 更新の際は全てのファイルを置き換えて、上記の2番から実行してください  
